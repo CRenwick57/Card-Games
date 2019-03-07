@@ -64,13 +64,16 @@ def move(fro,to):
         fro = str(fro)
     if type(to) is int:
         to = str(to)
-    if not game.board[fro]:
+    if fro not in game.board.keys() or not game.board[fro]:
         return None
     moving = game.board[fro][-1]
     if to == top:
         to = moving.suit
-        if not game.board[to] and moving.number is 1:
-            game.board[to].append(game.board[fro].pop(-1))
+        if not game.board[to]:
+            if moving.number is 1:
+                game.board[to].append(game.board[fro].pop(-1))
+            else:
+                return None
         elif game.board[to][-1].number == moving.number-1:
             game.board[to].append(game.board[fro].pop(-1))
         else:
@@ -94,3 +97,7 @@ def move(fro,to):
 
 free = 'free'
 top = 'top'
+f1 = 'F1'
+f2 = 'F2'
+f3 = 'F3'
+f4 = 'F4'
