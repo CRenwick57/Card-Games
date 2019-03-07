@@ -67,20 +67,19 @@ def move(fro,to):
     if not game.board[fro]:
         return None
     moving = game.board[fro][-1]
-    if to in list('SCDH'):
-        if moving.suit != to:
-            return None
-        elif not game.board[to]:
+    if to == top:
+        to = moving.suit
+        if not game.board[to] and moving.number is 1:
             game.board[to].append(game.board[fro].pop(-1))
         elif game.board[to][-1].number == moving.number-1:
             game.board[to].append(game.board[fro].pop(-1))
         else:
             return None
-    elif to[0] == 'F':
-        if not game.board[to]:
-            game.board[to].append(game.board[fro].pop(-1))
-        else:
-            return None
+    elif to == free:
+        for cell in ['F1','F2','F3','F4']:
+            if not game.board[cell]:
+                game.board[cell].append(game.board[fro].pop(-1))
+                break
     elif to in list('12345678'):
         print(to)
         if not game.board[to]:
